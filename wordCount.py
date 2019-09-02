@@ -3,9 +3,13 @@ import re
 import string
 
 def main():
-    o = "output"
+    if len(sys.argv) is not 2:
+        print("Correct usage: wordCount.py <input text file>")
+        exit()
+
+    inputText = sys.argv[1]
     wordCounts={}#dictionary containing the counts
-    with open("declaration.txt",'r') as inputFile:
+    with open(inputText,'r') as inputFile:
         for line in inputFile:
             line = line.strip()
             noPunct = string.maketrans(string.punctuation, ' '*len(string.punctuation))
@@ -20,7 +24,7 @@ def main():
                         wordCounts[word]=1
         inputFile.close()
     sortedKeys = sorted(wordCounts.iterkeys())#sorts the keys
-    f = open(o + ".txt",'w+');
+    f = open("output.txt",'w+');#output file named output.txt
     for keys in sortedKeys:
         f.write(keys + " " + str(wordCounts[keys]) + "\n")
 
